@@ -1,0 +1,6 @@
+<div *ngFor="let comp of [project].Components">
+  <div style="text-decoration:underline;">Components:</div>
+  <div>Name: {{ comp.Name }}</div>
+  <div>Description: {{ comp.Description }}</div>
+  <app-component-list components="{{comp.Components}}"></app-component-list>
+</div>

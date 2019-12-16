@@ -1,0 +1,46 @@
+[
+  {
+    "outputFile": "./ClientApp/src/app/blueprint-list/blueprint-list.component.css",
+    "inputFile": "./ClientApp/src/app/blueprint-list/blueprint-list.component.scss",
+    "minify": {
+      "enabled": true
+    },
+    "includeInProject": false,
+    "options": {
+      "sourceMap": false
+    }
+  },
+  {
+    "outputFile": "./ClientApp/src/app/add-blueprint/add-blueprint.component.css",
+    "inputFile": "./ClientApp/src/app/add-blueprint/add-blueprint.component.scss",
+    "minify": {
+      "enabled": true
+    },
+    "includeInProject": false,
+    "options": {
+      "sourceMap": false
+    }
+  },
+  {
+    "outputFile": "./ClientApp/src/app/add-project/add-project.component.css",
+    "inputFile": "./ClientApp/src/app/add-project/add-project.component.scss",
+    "minify": {
+      "enabled": true
+    },
+    "includeInProject": false,
+    "options": {
+      "sourceMap": false
+    }
+  },
+  {
+    "outputFile": "./ClientApp/node_modules/angular-bootstrap-md/assets/scss/mdb.css",
+    "inputFile": "./ClientApp/node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
+    "minify": {
+      "enabled": true
+    },
+    "includeInProject": false,
+    "options": {
+      "sourceMap": false
+    }
+  }
+]

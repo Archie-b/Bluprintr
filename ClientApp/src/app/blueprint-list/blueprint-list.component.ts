@@ -13,7 +13,7 @@ export class BlueprintList {
   public blueprints: FilteredList<Blueprint>;
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<Blueprint[]>(baseUrl + 'api/blueprint', { observe: 'response' }).subscribe(response => {
-      this.blueprints = new FilteredList(response.body.map(b => new Blueprint(b)));
+      this.blueprints = new FilteredList(response.body.map((blueprint: Blueprint) => new Blueprint(blueprint)));
     }, error => console.error(error));
   }
 }

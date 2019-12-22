@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'blueprint-viewer',
   templateUrl: 'view-blueprint.component.html',
-  styleUrls: ['view-blueprint.component.css'],
+  styleUrls: ['view-blueprint.component.css']
 })
 export class ViewBlueprint {
   private blueprint: Blueprint;

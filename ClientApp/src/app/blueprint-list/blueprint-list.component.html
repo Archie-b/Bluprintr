@@ -1,4 +1,4 @@
-<h3 class="mx-auto text-center">Blueprint List</h3>
+  <h3 class="mx-auto text-center">Blueprint List</h3>
 <p *ngIf="!blueprints"><em>Loading...</em></p>
 <div *ngIf="blueprints" class="w-75 mx-auto">
   <div class="row">
@@ -17,7 +17,7 @@
   <div class="row">
     <div *ngFor="let blueprint of blueprints.items()" [ngClass]="{'col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 projectCard m-1 p-1 z-depth-1-half' : true, 'display' : blueprint.display}" style="background-color: white">
       <img src="/assets/{{ blueprint.image }}" class="w-100" />
-      <h3>{{ blueprint.name }}</h3>
+      <h3  [routerLink]="['/blueprint', blueprint.id]"> {{ blueprint.name}}</h3>
       <div class="description w-100">{{ blueprint.description }}</div>
     </div>
   </div>

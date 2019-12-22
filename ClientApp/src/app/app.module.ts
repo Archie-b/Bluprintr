@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { ComponentListComponent } from './component-list/component-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BlueprintList } from './blueprint-list/blueprint-list.component';
+import { BlueprintListComponent as BlueprintList } from './blueprint-list/blueprint-list.component';
 import { AddBlueprint } from './add-blueprint/add-blueprint.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-
+import { ViewBlueprint } from './view-blueprint/view-blueprint.component';
+import { ViewComponentComponent } from './view-component/view-component.component';
 const routes: Routes = [
-  { path: 'blueprints', component: BlueprintList },
-  { path: 'add-blueprint', component: AddBlueprint }
+  { path: 'blueprints', component: BlueprintList,pathMatch:'full' },
+  { path: 'add-blueprint', component: AddBlueprint },
+  { path: 'blueprint/:id', component: ViewBlueprint, pathMatch: 'full'}
 ];
 
 @NgModule({
@@ -23,7 +25,9 @@ const routes: Routes = [
     BlueprintList,
     ComponentListComponent,
     AddBlueprint,
-    NavMenuComponent
+    NavMenuComponent,
+    ViewBlueprint,
+    ViewComponentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

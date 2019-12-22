@@ -1,11 +1,24 @@
- export class FilteredList<T extends ITaggable> {
+export class FilteredList<T extends ITaggable> {
 
   private list: T[] = [];
   private filter: Filter[] = [];
+  public searchText: string = "";
 
   public constructor(list: T[]) {
     this.list = list;
     this.populateFilter();
+  }
+
+  private getFilterItem(tag: string): Filter {
+    return this.filter.filter((filterItem: Filter) => filterItem.tag === tag)[0];
+  }
+
+  private hasSearchText(): boolean {
+    return this.searchText !== "";
+  }
+
+  private itemPassesFilter(item: ITaggable, filter: EFilterState): boolean {
+    return item.tags.filter((tag: string) => !!tag).some((tag: string) => this.getFilterItem(tag).active === filter);
   }
 
   private populateFilter(): void {
@@ -16,30 +29,27 @@
     });
   }
 
-  private getFilterItem(tag: string): Filter {
-    return this.filter.filter((filterItem: Filter) => filterItem.tag === tag)[0];
-  }
-
-  private itemPassesFilter(item: ITaggable, filter: EFilterState): boolean {
-    return item.tags.filter((tag: string) => !!tag).some((tag: string) => this.getFilterItem(tag).active === filter);
-  }
-
-  private updateList(): void {
-    var noFiltersEnabled = this.filter.every((filterItem: Filter) => filterItem.active === EFilterState.Disabled || filterItem.active === EFilterState.Exclude);
-    this.list.forEach((listItem: ITaggable) => listItem.display = noFiltersEnabled);
-    if (!noFiltersEnabled) this.list.filter((listItem: ITaggable) => !listItem.tags).forEach((listItem : ITaggable) => listItem.display === false);
-    this.list.filter((listItem: ITaggable) => !!listItem.tags).forEach((listItem: ITaggable) => {
-      if (!noFiltersEnabled && this.itemPassesFilter(listItem, EFilterState.Include)) listItem.display = true;
-      if (this.itemPassesFilter(listItem, EFilterState.Exclude)) listItem.display = false;
-    });
-  }
-
   private updateFilterItem(filterItem: Filter, updatedState: EFilterState): void {
     if (filterItem.active === updatedState) {
       filterItem.active = EFilterState.Disabled;
     } else {
       filterItem.active = updatedState;
     }
+  }
+
+  private updateList(): void {
+    var noFiltersEnabled = this.filter.every((filterItem: Filter) => filterItem.active === EFilterState.Disabled || filterItem.active === EFilterState.Exclude);
+    this.list.forEach((listItem: ITaggable) => listItem.display = noFiltersEnabled);
+    if (!noFiltersEnabled) this.list.filter((listItem: ITaggable) => !listItem.tags).forEach((listItem: ITaggable) => listItem.display === false);
+    this.list.filter((listItem: ITaggable) => !!listItem.tags).forEach((listItem: ITaggable) => {
+      if (!noFiltersEnabled && this.itemPassesFilter(listItem, EFilterState.Include)) listItem.display = true;
+      if (this.itemPassesFilter(listItem, EFilterState.Exclude)) listItem.display = false;
+      if (listItem.display && this.hasSearchText() && listItem.name.toLowerCase().indexOf(this.searchText.toLowerCase()) === -1) listItem.display = false;
+    });
+  }
+
+  applySearchText(): void {
+    this.updateList();
   }
 
   clearFilter(): void {
@@ -53,6 +63,7 @@
   }
 
   filters(): Filter[] {
+
     return this.filter;
   }
 
@@ -64,11 +75,13 @@
   items(): T[] {
     return this.list.filter((listItem: ITaggable) => listItem.display);
   }
+
 }
 
 export interface ITaggable {
   tags: string[],
   display: boolean,
+  name: string
 }
 
 enum EFilterState {

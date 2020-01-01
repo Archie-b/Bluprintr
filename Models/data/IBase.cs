@@ -1,4 +1,6 @@
-﻿namespace Bluprintr.Models
+﻿using System;
+
+namespace Bluprintr.Models
 {
     using System.Collections.Generic;
     using MongoDB.Bson;

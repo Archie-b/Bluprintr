@@ -6,7 +6,7 @@
     using System.Data;
     using System.Data.SqlClient;
 
-    public class MSSQLDriver : IInterface
+    public class MSSQLDriver
     {
         private readonly string connectionString;
 

@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="bg-white mx-auto p-3 z-depth-1 rounded">
+    <div *ngIf="!loggedIn">
+      <h3 class="h3-response mb-3">Log In</h3>
+      <input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail" [(ngModel)]="model.username" name="username">
+      <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" [(ngModel)]="model.password" name="password">
+      <button class="btn btn-info btn-block my-4" type="submit" (click)="login()">Log In</button>
+    </div>
+    <div *ngIf="model.loggedIn">
+      Success!
+    </div>
+  </div>
+</div>

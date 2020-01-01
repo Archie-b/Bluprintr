@@ -9,11 +9,12 @@ import { Blueprint } from '../shared/Blueprint';
   styleUrls: ['blueprint-list.component.css', '../fontawesome/css/all.min.css'],
 })
 
-export class BlueprintList {
+export class BlueprintListComponent {
   public blueprints: FilteredList<Blueprint>;
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Blueprint[]>(baseUrl + 'api/blueprint', { observe: 'response' }).subscribe(response => {
-      this.blueprints = new FilteredList(response.body.map((blueprint: Blueprint) => new Blueprint(blueprint)));
+    http.get<any>(baseUrl + 'api/blueprint', { observe: 'response' }).subscribe(response => {
+      this.blueprints = new FilteredList(response.body['Blueprints'].map((blueprint: Blueprint) => new Blueprint(blueprint)),
+        response.body['Tags']);
     }, error => console.error(error));
   }
 }

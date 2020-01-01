@@ -232,3 +232,7 @@ _Pvt_Extensions
 
 # compiled css files
 ClientApp/src/app/*/*.css
+
+ClientApp/package-lock.json
+*.rsa
+appsettings.json

@@ -36,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.css" />
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.js" />
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.js.map" />
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.ts" />
@@ -53,6 +54,9 @@
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js.map" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.ts" />
+    <None Remove="ClientApp\src\app\view-blueprint\view-blueprint.component.css" />
+  </ItemGroup>
+  
   <ItemGroup>
     <Content Include="ClientApp\package.json" />
   </ItemGroup>

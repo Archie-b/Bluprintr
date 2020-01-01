@@ -7,7 +7,7 @@ export class Blueprint implements ITaggable {
     this.name = b.Name;
     this.description = b.Description;
     this.image = b.Image;
-    this.components = b.Components;
+    this.Components = b.Components;
     this.tags = b.Tags;
     this.display = true;
   }
@@ -17,12 +17,18 @@ export class Blueprint implements ITaggable {
   name: string;
   description: string;
   image: string;
-  components: SubComponent[];
+  Components: SubComponent[];
 }
 
-interface SubComponent {
-  id: string,
-  Name: string,
-  Description: string,
-  Components: SubComponent[],
+export class SubComponent {
+  constructor(b: any) {
+    this.id = b.Id;
+    this.name = b.Name;
+    this.description = b.Description;
+    this.Components = b.Components;
+  }
+  id: string;
+  name: string;
+  description: string;
+  Components: SubComponent[];
 }

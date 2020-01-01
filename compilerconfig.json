@@ -30,5 +30,13 @@
     "minify": {
       "enabled": false
     }
+  },
+  {
+    "outputFile": "ClientApp/src/app/view-component/view-component.component.css",
+    "inputFile": "ClientApp/src/app/view-component/view-component.component.scss"
+  },
+  {
+    "outputFile": "ClientApp/src/app/view-blueprint/view-blueprint.component.css",
+    "inputFile": "ClientApp/src/app/view-blueprint/view-blueprint.component.scss"
   }
 ]

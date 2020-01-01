@@ -2,11 +2,11 @@ export class FilteredList<T extends ITaggable> {
 
   private list: T[] = [];
   private filter: Filter[] = [];
-  public searchText: string = "";
+  public searchText: string;
 
-  public constructor(list: T[]) {
+  public constructor(list: T[], tags: string[]) {
     this.list = list;
-    this.populateFilter();
+    this.populateFilter(tags);
   }
 
   private getFilterItem(tag: string): Filter {
@@ -21,12 +21,8 @@ export class FilteredList<T extends ITaggable> {
     return item.tags.filter((tag: string) => !!tag).some((tag: string) => this.getFilterItem(tag).active === filter);
   }
 
-  private populateFilter(): void {
-    this.list.filter((listItem: ITaggable) => !!listItem.tags).forEach((listItem: T) => {
-      listItem.tags.filter((tag: string) => !!tag).forEach((listItemTag: string) => {
-        !this.filter.some((filterItem: Filter) => filterItem.tag === listItemTag) ? this.filter.push(new Filter({ tag: listItemTag })) : null;
-      });
-    });
+  private populateFilter(tags: string[]): void {
+    tags.forEach(tag => this.filter.push(new Filter({ tag })));
   }
 
   private updateFilterItem(filterItem: Filter, updatedState: EFilterState): void {
@@ -38,7 +34,8 @@ export class FilteredList<T extends ITaggable> {
   }
 
   private updateList(): void {
-    var noFiltersEnabled = this.filter.every((filterItem: Filter) => filterItem.active === EFilterState.Disabled || filterItem.active === EFilterState.Exclude);
+    const noFiltersEnabled = this.filter.every((filterItem: Filter) => filterItem.active === EFilterState.Disabled ||
+      filterItem.active === EFilterState.Exclude);
     this.list.forEach((listItem: ITaggable) => listItem.display = noFiltersEnabled);
     if (!noFiltersEnabled) this.list.filter((listItem: ITaggable) => !listItem.tags).forEach((listItem: ITaggable) => listItem.display === false);
     this.list.filter((listItem: ITaggable) => !!listItem.tags).forEach((listItem: ITaggable) => {

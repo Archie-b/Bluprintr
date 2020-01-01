@@ -17,8 +17,10 @@ import { LoginComponent } from './login/login.component';
 import { HttpInterceptorService } from './shared/HttpInterceptorService';
 import { AuthGuard } from './auth.guard';
 import { AuthenticationService } from './Authentication.service';
+import { RecentBlueprintsComponent } from './recent-blueprints/recent-blueprints.component';
 
 const routes: Routes = [
+  { path: '', component: RecentBlueprintsComponent},
   { path: 'blueprints', component: BlueprintList, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'add-blueprint', component: AddBlueprint, canActivate: [AuthGuard] },
   { path: 'blueprint/:id', component: ViewBlueprint, pathMatch: 'full', canActivate: [AuthGuard]},
@@ -36,6 +38,7 @@ const routes: Routes = [
     ViewBlueprint,
     ViewComponentComponent,
     LoginComponent,
+    RecentBlueprintsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -46,7 +49,6 @@ const routes: Routes = [
     CommonModule,
     MDBBootstrapModule.forRoot()
   ],
-  providers: [],
   providers: [AuthGuard,
     AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],

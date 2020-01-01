@@ -1,10 +1,14 @@
-﻿namespace Bluprintr.Models
+﻿using System;
+using System.Security.Permissions;
+using Bluprintr.Models.data.Interfaces;
+
+namespace Bluprintr.Models
 {
     using System.Collections.Generic;
     using MongoDB.Bson;
     using MongoDB.Bson.Serialization.Attributes;
 
-    public class Blueprint : IBase
+    public class Blueprint : IMongoElement
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -20,5 +24,17 @@
         public List<Component> Components { get; set; }
 
         public List<string> Tags { get; set; }
+
+        public string DateAdded { get; set; }
+
+        public bool? IsPublic { get; set; }
+        public bool Highlighted { get; set; }
+    }
+
+
+    public class BlueprintResponse
+    {
+        public List<Blueprint> Blueprints;
+        public List<string> Tags;
     }
 }

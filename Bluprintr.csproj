@@ -15,15 +15,17 @@
 
   <ItemGroup>
     <PackageReference Include="Angular.Material" Version="1.1.12" />
-    <PackageReference Include="BuildWebCompiler" Version="1.12.405" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
-    <PackageReference Include="MongoDB.Bson" Version="2.9.3" />
-    <PackageReference Include="MongoDB.Driver" Version="2.9.3" />
+    <PackageReference Include="MongoDB.Bson" Version="2.10.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.10.0" />
+    <PackageReference Include="morelinq" Version="3.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +39,8 @@
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.js" />
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.js.map" />
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.ts" />
+    <None Remove="ClientApp\src\app\auth.guard.ts" />
+    <None Remove="ClientApp\src\app\Authentication.service.ts" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js.map" />
     <None Remove="ClientApp\src\app\shared\Blueprint.ts" />
@@ -45,16 +49,22 @@
     <None Remove="ClientApp\src\app\shared\DynamicForm.js" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.js.map" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.ts" />
+    <None Remove="ClientApp\src\app\shared\HttpInterceptorService.ts" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js.map" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.ts" />
+  <ItemGroup>
+    <Content Include="ClientApp\package.json" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\add-blueprint\add-blueprint.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Authentication.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\Blueprint.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\DynamicForm.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\TagFilteredList.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\HttpInterceptorService.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -87,4 +97,19 @@
 
   <ProjectExtensions><VisualStudio><UserProperties controllers_4schemas_4blueprint-schema_1json__JsonSchema="http://json-schema.org/draft-04/schema" /></VisualStudio></ProjectExtensions>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
 </Project>

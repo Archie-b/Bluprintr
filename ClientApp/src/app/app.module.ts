@@ -18,11 +18,12 @@ import { HttpInterceptorService } from './shared/HttpInterceptorService';
 import { AuthGuard } from './auth.guard';
 import { AuthenticationService } from './Authentication.service';
 import { RecentBlueprintsComponent } from './recent-blueprints/recent-blueprints.component';
+import { DrawBlueprintComponent } from './draw-blueprint/draw-blueprint.component';
 
 const routes: Routes = [
   { path: '', component: RecentBlueprintsComponent},
   { path: 'blueprints', component: BlueprintList, pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'add-blueprint', component: AddBlueprint, canActivate: [AuthGuard] },
+  { path: 'add-blueprint', component: DrawBlueprintComponent, canActivate: [AuthGuard] },
   { path: 'blueprint/:id', component: ViewBlueprint, pathMatch: 'full', canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' }
@@ -38,6 +39,7 @@ const routes: Routes = [
     ViewBlueprint,
     ViewComponentComponent,
     LoginComponent,
+    DrawBlueprintComponent,
     RecentBlueprintsComponent
   ],
   imports: [

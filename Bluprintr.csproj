@@ -36,20 +36,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\src\app\essay-examples\Examples.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.css" />
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.js" />
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.js.map" />
     <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.ts" />
     <None Remove="ClientApp\src\app\auth.guard.ts" />
     <None Remove="ClientApp\src\app\Authentication.service.ts" />
+    <None Remove="ClientApp\src\app\essay-examples\examples.ts" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js.map" />
     <None Remove="ClientApp\src\app\shared\Blueprint.ts" />
+    <None Remove="ClientApp\src\app\shared\ComponentCanvas.ts" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.component.js" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.component.js.map" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.js" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.js.map" />
-    <None Remove="ClientApp\src\app\shared\DynamicForm.ts" />
     <None Remove="ClientApp\src\app\shared\HttpInterceptorService.ts" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js.map" />
@@ -65,8 +70,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\add-blueprint\add-blueprint.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Authentication.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\essay-examples\examples.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\Blueprint.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\shared\DynamicForm.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\ComponentCanvas.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\TagFilteredList.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\HttpInterceptorService.ts" />
   </ItemGroup>

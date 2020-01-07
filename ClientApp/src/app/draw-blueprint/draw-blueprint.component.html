@@ -1,11 +1,32 @@
-<div>
-  <div id="CanvasContainer">
+<div class="z-depth-1 bg-white p-2 mx-auto w-75 vh-100 row">
+  <div id="BlueprintData" class="w-25 p-2 border-right h-100">
+
+    <div class="md-form">
+      <input type="text" [(ngModel)]="blueprint.name" name="BlueprintName" class="form-control" mdbInput id="TitleInput" />
+      <label for="TitleInput" class="">Name</label>
+    </div>
+    <div class="md-form">
+      <textarea type="text" id="DescriptionInput" class="md-textarea form-control" mdbInput [(ngModel)]="blueprint.description"></textarea>
+      <label for="DescriptionInput">Description</label>
+    </div>
+    <div class="custom-control-inline custom-checkbox md-form w-100">
+      <input type="checkbox" class="custom-control-input" id="BlueprintIsPublic" [(ngModel)]="blueprint.isPublic" name="BlueprintIsPublic">
+      <label class="custom-control-label ml-4" for="BlueprintIsPublic">Is Public</label>
+    </div>
+  </div>
+  <div id="CanvasContainer" class="w-50 border-right p-2 h-100" style="background-image: url('assets/engine.jpg'); background-repeat: no-repeat; background-size: contain">
 
   </div>
-  <div id="CanvasControls">
-
-  </div>
-  <div id="ComponentList">
-
+  <div id="ComponentList" class="w-25 p-2 h-100">
+    <div *ngIf="layers">
+      <div *ngFor="let layer of layers">
+        <div (click)="makeLayerTop(layer.canvas.id)">
+          {{layer.canvas.id}}
+          <input type="color" (change)="changeComponentColour(this,layer.canvas.id)" />
+          {{layers[0].colour}}
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-info btn-block my-4 w-100 border-right" type="submit" (click)="addLayer()">Add Component</button>
   </div>
 </div>

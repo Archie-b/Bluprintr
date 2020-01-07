@@ -52,7 +52,7 @@ namespace Bluprintr.Controllers
         {
             if (this.useMongo)
             {
-               // return this.dBInterface.Get(id);
+               return new Response(JsonConvert.SerializeObject(this.dBInterface.Get(id)));
             }
 
             return new Response(string.Empty);

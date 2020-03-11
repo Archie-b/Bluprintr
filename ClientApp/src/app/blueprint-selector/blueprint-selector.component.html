@@ -1,0 +1,17 @@
+<div class="w-50 mx-auto bg-white my-2 h-100 p-2">
+  <div *ngIf="blueprints">
+    <div class="mx-auto h3 w-75">Select a blueprint to use as the base of your project</div>
+    <div *ngFor="let blueprint of blueprints.items()" class="row w-100">
+      <div class="md-form w-100 p-3 m-1">
+        <div class="w-75">
+          <div class="w-100 h6">{{blueprint.Name}}</div>
+          <div class="w-100">{{blueprint.Description}}</div>
+        </div>
+        <div class="w-25 my-auto">
+          <a class="btn btn-info btn-block w-100 border-right text-white" [routerLink]="['/blueprint/', blueprint.Id]">View</a>
+          <a class="btn btn-info btn-block w-100 border-right text-white"[routerLink]="['/add-project/', blueprint.Id]">Select</a>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>

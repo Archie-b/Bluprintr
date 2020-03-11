@@ -1,10 +1,52 @@
-<div [ngClass]="'add-blueprint mx-auto w-50 p-2 container'">
-  <div class="md-form w-75 mx-auto">
-    <input mdbInput type="text" id="TitleInput" class="form-control">
-    <label for="TitleInput" class="">Title</label>
+<div class="z-depth-1 bg-white p-2 mx-auto w-75 row" style="height: 800px">
+  <div id="BlueprintData" class="w-25 p-2 border-right h-100">
+    <div class="md-form">
+      <input type="text" [(ngModel)]="blueprint.name" name="BlueprintName" class="form-control validate" mdbInput id="TitleInput" />
+      <label for="TitleInput" class="">Name</label>
+    </div>
+    <div class="md-form">
+      <textarea type="text" id="DescriptionInput" class="md-textarea form-control" mdbInput [(ngModel)]="blueprint.description"></textarea>
+      <label for="DescriptionInput">Description</label>
+    </div>
+    <div class="input-group">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="ImageInput"
+               aria-describedby="inputGroupFileAddon01">
+        <label class="custom-file-label" for="ImageInput">{{blueprint.image}}</label>
+      </div>
+    </div>
+    <div class="custom-control-inline custom-checkbox md-form w-100">
+      <input type="checkbox" class="custom-control-input" id="BlueprintIsPublic" [(ngModel)]="blueprint.isPublic" name="BlueprintIsPublic">
+      <label class="custom-control-label ml-4" for="BlueprintIsPublic">Is Public</label>
+    </div>
+    <div class="md-form">
+      <input type="text" id="TagsInput" class="form-control" mdbInput (keyup)="updateTags()" />
+      <label for="TagsInput">Tags (Comma Seperated)</label>
+    </div>
+    <div class="md-form w-50 mx-auto">
+      <button class="btn btn-info btn-block w-100 border-right" type="submit" (click)="saveBlueprint()">Save</button>
+    </div>
   </div>
-  <div class="md-form w-75 mx-auto">
-    <textarea type="text" id="DescriptionInput" class="md-textarea form-control" mdbInput></textarea>
-    <label for="form7">Description</label>
+  <div id="CanvasContainer" class="w-50 border-right p-2 h-100" [ngStyle]="{'background-image': 'url(/assets/engine.jpg)', 'background-repeat': 'no-repeat', 'background-size':'contain'}">
+  </div>
+  <div id="ComponentList" class="w-25 p-2 h-100">
+    <div *ngIf="layers" class="layers scrollbar scrollbar-primary">
+      <div *ngFor="let layer of layers; let layerNumber = index" class="layer w-100">
+        <div class="md-form">
+          <input type="text" [(ngModel)]="layers[layerNumber].component.Name" name="BlueprintName" class="form-control" mdbInput id="{{layer.getID()}}TitleInput" />
+          <label for="{{layer.getID()}}TitleInput" class="">Name</label>
+        </div>
+        <div class="md-form">
+          <textarea type="text" id="{{layer.getID()}}DescriptionInput" class="md-textarea form-control" mdbInput [(ngModel)]="layers[layerNumber].component.Description"></textarea>
+          <label for="{{layer.getID()}}DescriptionInput">Description</label>
+        </div>
+        <div class="controls w-100 md-form">
+          <button class="btn btn-info btn-block w-100 border-right" type="submit" (click)="changeComponentColour(layer.getID())">Change Colour</button>
+          <button class="btn btn-info btn-block w-50 border-right" type="submit" (click)="makeLayerTop(layer.getID())">Select</button>
+          <button class="btn btn-info btn-block w-50 border-right" type="submit" (click)="deleteLayer(layer.getID())">Delete</button>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-info btn-block my-4 w-100 border-right" type="submit" (click)="addLayer()">Add Component</button>
   </div>
 </div>

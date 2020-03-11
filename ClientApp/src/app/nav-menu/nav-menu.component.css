@@ -16,3 +16,11 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+
+.navbar-light .navbar-nav .blue-link {
+  margin-left: 5px;
+  background-color: #0058a2;
+  border-radius: 5px;
+  color: #fff;
+}

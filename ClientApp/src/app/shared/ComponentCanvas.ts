@@ -19,6 +19,7 @@ export class ComponentCanvas {
     this.canvas.addEventListener('mouseup', this.endDraw.bind(this));
     this.canvas.addEventListener('mouseout', this.endDraw.bind(this));
     this.canvas.addEventListener('resize', this.resize.bind(this));
+    this.context = this.canvas.getContext('2d');
   }
 
   setID(id: string): void {
@@ -39,7 +40,6 @@ export class ComponentCanvas {
   }
 
   startDraw(e: MouseEvent): void {
-    this.context = this.canvas.getContext('2d');
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawStartX = e.clientX - this.canvas.getBoundingClientRect().left;
     this.drawStartY = e.clientY - this.canvas.getBoundingClientRect().top;
@@ -65,8 +65,8 @@ export class ComponentCanvas {
     }
   }
 
-  setColour(): void {
-
+  setColour(hexCode : string): void {
+    this.context.strokeStyle = hexCode;
   }
 
   resize(widthModifier: number, heightModifier: number): void {
@@ -78,6 +78,5 @@ export class ComponentCanvas {
     this.canvas.height *= heightModifier;
     this.context = this.canvas.getContext('2d');
     this.context.putImageData(image, 0, 0);
-
   }
 }

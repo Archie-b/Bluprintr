@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { UserToken } from './shared/UserToken';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -8,7 +9,12 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (localStorage.getItem('token')) {
-      return true;
+      var token: UserToken = JSON.parse(localStorage.getItem('token'));
+      if (((Date.now() - token.timestamp) / 1000 / 60) < 120) {
+        token.timestamp = Date.now();
+        localStorage.setItem('token', JSON.stringify(token));
+        return true;
+      }
     }
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;

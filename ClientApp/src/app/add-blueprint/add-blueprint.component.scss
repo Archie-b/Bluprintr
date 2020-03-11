@@ -1,3 +1,19 @@
-.add-blueprint{
-    background-color:#fff;
+
+.btn.btn-block {
+  float: left;
+}
+
+.layer {
+  display: inline-block;
+  border-bottom: 1px solid #dee2e6;
+  padding: 10px 0 10px 0;
+}
+
+.layers {
+  height: 90%;
+  overflow-y: scroll;
+}
+
+.layers::-webkit-scrollbar {
+  display: none;
 }

@@ -1,13 +1,13 @@
 ﻿namespace Bluprintr.Models
 {
+    using Bluprintr.Models.data.Interfaces;
+    using MongoDB.Bson;
+    using MongoDB.Bson.Serialization.Attributes;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Runtime.Serialization;
-    using MongoDB.Bson;
-    using MongoDB.Bson.Serialization.Attributes;
 
-    public class Component : IBase, IEquatable<Component>
+    public class Component : IMongoElement, IEquatable<Component>
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -21,6 +21,8 @@
 
         [BsonElement("Components")]
         public List<Component> Components { get; set; }
+
+        public bool? IsPublic { get; set; }
 
         public bool Equals([AllowNull] Component other)
         {

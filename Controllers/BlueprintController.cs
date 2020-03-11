@@ -1,17 +1,16 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using MongoDB.Driver;
-
-namespace Bluprintr.Controllers
+﻿namespace Bluprintr.Controllers
 {
     using Bluprintr.Models;
+    using Bluprintr.Models.data.Interfaces;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MongoDB.Bson;
+    using MongoDB.Driver;
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Newtonsoft.Json.Schema;
+    using System;
     using System.Linq;
-    using Bluprintr.Models.data.Interfaces;
-    using Newtonsoft.Json;
 
     [Route("api/[controller]")]
     public class BlueprintController : Controller
@@ -24,7 +23,7 @@ namespace Bluprintr.Controllers
             if (settings != null)
             {
                 this.uploadComponentSchema = JSchema.Parse(settings.BlueprintSchema);
-                this.useMongo = settings.UseMongo;
+                this.useMongo = settings.UseMongo;  
                 this.dBInterface = new Driver<Blueprint>(settings, "Blueprints");
             }
         }
@@ -38,7 +37,7 @@ namespace Bluprintr.Controllers
 
             BlueprintResponse response = new BlueprintResponse();
             IFindFluent<Blueprint,Blueprint> blueprints = this.dBInterface.Get(true).Limit(limit);
-            response.Tags = blueprints.Project(x => x.Tags).ToEnumerable().SelectMany(tag => tag).Distinct().ToList();
+            response.Tags = blueprints.Project(x => x.Tags).ToEnumerable().Where(tags => tags != null).SelectMany(tag => tag).Distinct().ToList();
             response.Blueprints = blueprints.ToList();
             response.Blueprints.ForEach(blueprint => blueprint.Components = null);
 
@@ -61,21 +60,10 @@ namespace Bluprintr.Controllers
         // POST api/<controller>
         [Authorize]
         [HttpPost]
-        public string Post([FromBody] JObject value)
+        public void Post([FromBody] Blueprint value)
         {
-            if (value.IsValid(this.uploadComponentSchema))
-            {
-                if (this.useMongo)
-                {
-                  //  this.dBInterface.Post(value);
-                }
-
-                return new Response(string.Empty).ToString();
-            }
-            else
-            {
-                return new Response("Bad Schema").ToString();
-            }
+            value.Components.ForEach(Component => Component.Id = ObjectId.GenerateNewId().ToString());
+            this.dBInterface.Post(value);
         }
 
         // DELETE api/<controller>/5

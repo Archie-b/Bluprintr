@@ -36,29 +36,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="ClientApp\src\app\essay-examples\Examples.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.css" />
-    <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.js" />
-    <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.js.map" />
-    <None Remove="ClientApp\src\app\add-blueprint\add-blueprint.component.ts" />
     <None Remove="ClientApp\src\app\auth.guard.ts" />
     <None Remove="ClientApp\src\app\Authentication.service.ts" />
-    <None Remove="ClientApp\src\app\essay-examples\examples.ts" />
+    <None Remove="ClientApp\src\app\blueprint.service.ts" />
+    <None Remove="ClientApp\src\app\image.service.ts" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js.map" />
     <None Remove="ClientApp\src\app\shared\Blueprint.ts" />
     <None Remove="ClientApp\src\app\shared\ComponentCanvas.ts" />
+    <None Remove="ClientApp\src\app\shared\DrawingCanvas.ts" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.component.js" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.component.js.map" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.js" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.js.map" />
     <None Remove="ClientApp\src\app\shared\HttpInterceptorService.ts" />
+    <None Remove="ClientApp\src\app\shared\project.ts" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js.map" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.ts" />
+    <None Remove="ClientApp\src\app\shared\UserToken.ts" />
     <None Remove="ClientApp\src\app\view-blueprint\view-blueprint.component.css" />
   </ItemGroup>
   
@@ -67,14 +63,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\add-blueprint\add-blueprint.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Authentication.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\essay-examples\examples.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\blueprint.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\image.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\Blueprint.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\ComponentCanvas.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\DrawingCanvas.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\project.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\TagFilteredList.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\HttpInterceptorService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\UserToken.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

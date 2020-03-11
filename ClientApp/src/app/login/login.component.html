@@ -9,5 +9,8 @@
     <div *ngIf="model.loggedIn">
       Success!
     </div>
+    <div class="mx-auto w-100" *ngIf="error == true" style="color:red">
+      The username or password was incorrect
+    </div>
   </div>
 </div>

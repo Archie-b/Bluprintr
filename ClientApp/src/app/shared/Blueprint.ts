@@ -2,36 +2,47 @@ import { ITaggable } from "./TagFilteredList";
 
 export class Blueprint implements ITaggable {
 
-  constructor(b?: any) {
+  constructor(b?: Blueprint) {
     if (b !== undefined) {
-    this.id = b.Id;
-    this.name = b.Name;
-    this.description = b.Description;
-    this.image = b.Image;
-    this.Components = b.Components;
-    this.tags = b.Tags;
-      this.display = true;
+      this.Id = b.Id;
+      this.Name = b.Name;
+      this.Description = b.Description;
+      this.Image = b.Image;
+      this.Components = b.Components;
+      this.Tags = b.Tags;
+      this.Display = true;
+    } else {
+      this.Components = [];
     }
   }
-  tags: string[];
-  display: boolean;
-  id: string;
-  name: string;
-  description: string;
-  image: string;
+  Tags: string[];
+  Display: boolean;
+  Id: string;
+  Name: string;
+  Description: string;
+  Image: string;
   Components: SubComponent[];
-  isPublic : boolean;
+  IsPublic: boolean;
+  DateCreated: Date;
+
 }
 
 export class SubComponent {
-  constructor(b: any) {
-    this.id = b.Id;
-    this.name = b.Name;
-    this.description = b.Description;
-    this.Components = b.Components;
+  constructor(b?: SubComponent) {
+    if (b !== undefined) {
+      this.Id = b.Id;
+      this.Name = b.Name;
+      this.Description = b.Description;
+      this.Components = b.Components;
+      this.Map = b.Map;
+    } else {
+      this.Components = [];
+      this.Map = "";
+    }
   }
-  id: string;
-  name: string;
-  description: string;
+  Id: string;
+  Name: string;
+  Description: string;
   Components: SubComponent[];
+  Map : string;
 }

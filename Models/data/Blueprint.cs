@@ -1,12 +1,9 @@
-﻿using System;
-using System.Security.Permissions;
-using Bluprintr.Models.data.Interfaces;
-
-namespace Bluprintr.Models
+﻿namespace Bluprintr.Models
 {
-    using System.Collections.Generic;
+    using Bluprintr.Models.data.Interfaces;
     using MongoDB.Bson;
     using MongoDB.Bson.Serialization.Attributes;
+    using System.Collections.Generic;
 
     public class Blueprint : IMongoElement
     {

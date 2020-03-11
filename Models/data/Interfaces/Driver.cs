@@ -43,7 +43,7 @@ namespace Bluprintr.Models.data.Interfaces
 
         public void Post(T item)
         {
-
+            this.items.InsertOne(item);
         }
     }
 }

@@ -40,6 +40,8 @@
     <None Remove="ClientApp\src\app\Authentication.service.ts" />
     <None Remove="ClientApp\src\app\blueprint.service.ts" />
     <None Remove="ClientApp\src\app\image.service.ts" />
+    <None Remove="ClientApp\src\app\project.service.ts" />
+    <None Remove="ClientApp\src\app\service.ts" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js.map" />
     <None Remove="ClientApp\src\app\shared\Blueprint.ts" />
@@ -64,13 +66,15 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\auth.guard.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\Authentication.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\blueprint.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\image.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\Authentication.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\blueprint.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\project.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\image.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\Blueprint.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\ComponentCanvas.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\DrawingCanvas.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\shared\project.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\Project.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\TagFilteredList.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\HttpInterceptorService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\UserToken.ts" />

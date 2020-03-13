@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Blueprint } from '../shared/Blueprint';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from '../shared/project';
+import { Project, ProjectComponent } from '../shared/project';
 
 @Component({
   selector: 'app-view-component-add-project',
@@ -25,13 +25,13 @@ export class AddProjectComponent {
 
   TranslateCoordinates(coords: string): string {
     let splitCoords: number[] = coords.split(',').map((coord: string) => parseFloat(coord)),
-      width = document.getElementById('BlueprintData').clientWidth,
-      height = document.getElementById('BlueprintData').clientHeight;
+      width = document.getElementById('svgHolder').clientWidth,
+      height = document.getElementById('svgHolder').clientHeight;
     for (let i = 0; i < splitCoords.length; i++) {
       if (i % 2 == 0) {
-        splitCoords[i] = splitCoords[i] * height;
-      } else {
         splitCoords[i] = splitCoords[i] * width;
+      } else {
+        splitCoords[i] = splitCoords[i] * height;
       }
     }
     return splitCoords.join(',');
@@ -39,5 +39,9 @@ export class AddProjectComponent {
 
   SelectComponent(id: string): void {
 
+  }
+
+
+  SaveProject(): void {
   }
 }

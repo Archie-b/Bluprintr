@@ -1,4 +1,6 @@
-﻿namespace Bluprintr.Models
+﻿using System.Buffers;
+
+namespace Bluprintr.Models
 {
     using Bluprintr.Models.data.Interfaces;
     using MongoDB.Bson;
@@ -26,6 +28,7 @@
 
         public bool? IsPublic { get; set; }
         public bool Highlighted { get; set; }
+        public string Owner { get; set; }
     }
 
 

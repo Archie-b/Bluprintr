@@ -56,8 +56,18 @@
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js.map" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.ts" />
+    <None Remove="ClientApp\src\app\shared\user.ts" />
     <None Remove="ClientApp\src\app\shared\UserToken.ts" />
     <None Remove="ClientApp\src\app\view-blueprint\view-blueprint.component.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="{bee4bfec-6683-3e67-9167-3c0cbc68f40a}">
+      <Guid>bee4bfec-6683-3e67-9167-3c0cbc68f40a</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
   </ItemGroup>
   
   <ItemGroup>
@@ -66,7 +76,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\auth.guard.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\services\Authentication.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\user.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\blueprint.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\project.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\image.service.ts" />
@@ -77,6 +87,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\Project.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\TagFilteredList.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\HttpInterceptorService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\User.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\UserToken.ts" />
   </ItemGroup>
 

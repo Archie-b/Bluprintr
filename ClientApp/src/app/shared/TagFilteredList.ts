@@ -4,9 +4,16 @@ export class FilteredList<T extends ITaggable> {
   private filter: Filter[] = [];
   public searchText: string;
 
-  public constructor(list: T[], tags: string[]) {
+  public constructor(list: T[], tags?: string[]) {
     this.list = list;
-    this.filter = this.convertTagsToFilter(tags);
+    if (tags !== undefined) {
+      this.filter = this.convertTagsToFilter(tags);
+    } else {
+      this.filter = this.convertTagsToFilter([].concat(...this.list.map((item: T) => item.Tags)).filter(
+        function (value, index, self) {
+          return self.indexOf(value) === index && value !== null;
+        }));
+    }
   }
 
   private getFilterItem(tag: Readonly<string>): Filter {
@@ -81,7 +88,7 @@ export class FilteredList<T extends ITaggable> {
 export interface ITaggable {
   Tags: string[],
   Display: boolean,
-  Name : string
+  Name: string
 }
 
 enum EFilterState {

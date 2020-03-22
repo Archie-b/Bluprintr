@@ -73,7 +73,6 @@ export class ComponentCanvas {
     var newContext = this.context;
     newContext.scale(widthModifier, heightModifier);
     var image = newContext.getImageData(0, 0, this.canvas.width * widthModifier, this.canvas.height * heightModifier);
-    console.log(image);
     this.canvas.width *= widthModifier;
     this.canvas.height *= heightModifier;
     this.context = this.canvas.getContext('2d');

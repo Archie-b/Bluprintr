@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { Blueprint } from '../shared/Blueprint';
 import { ComponentCanvas } from "../shared/ComponentCanvas";
 import { DrawingCanvas } from '../shared/DrawingCanvas';
-import { ImageService } from '../image.service';
+import { ImageService } from '../services/image.service';
 import { HttpClient } from '@angular/common/http';
-import { BlueprintService } from '../blueprint.service';
+import { BlueprintService } from '../services/blueprint.service';
+import { first } from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-view-component-draw-blueprint',
@@ -14,8 +16,11 @@ import { BlueprintService } from '../blueprint.service';
 export class AddBlueprintComponent {
   public layers: DrawingCanvas[];
   public blueprint: Blueprint = new Blueprint();
+  public error: boolean = false;
+  public uploading: boolean = false;
+  public ImageFile: File;
 
-  constructor(private blueprintService: BlueprintService) {
+  constructor(private blueprintService: BlueprintService, private imageService: ImageService) {
     this.layers = [];
   }
 
@@ -45,12 +50,43 @@ export class AddBlueprintComponent {
     document.getElementById(id).remove();
   }
 
-  saveBlueprint(): void {
+  async saveBlueprint(): Promise<void> {
+    this.error = false;
     if (this.validateForm()) {
       this.layers.map(layer => this.blueprint.Components.push(layer.component));
-      this.blueprint.DateCreated = new Date();
-      this.blueprintService.uploadBlueprint(this.blueprint);
+      this.blueprint.DateCreated = moment().format('dd-MM-YYYY hh:mm:ss');
+      this.blueprint.Owner = JSON.parse(localStorage.getItem('token')).id;
+      this.blueprintService.add(this.blueprint).pipe(
+        first())
+        .subscribe(
+          data => {
+            if (data !== undefined) {
+              window.location.href = "/blueprint/" + data;
+            } else {
+              this.error = true;
+            }
+          },
+          error => {
+            console.log(error);
+          });
     }
+  }
+
+  private uploadFileToServer() {
+
+    this.imageService.add(this.ImageFile)
+      .pipe(
+        first())
+      .subscribe(
+        data => {
+          if (data !== undefined) {
+            this.blueprint.Image = data;
+          }
+          this.uploading = false;
+        },
+        error => {
+          console.log(error);
+        });;
   }
 
   validateForm(): boolean {
@@ -67,26 +103,26 @@ export class AddBlueprintComponent {
     } else if (document.getElementById('DescriptionInput').classList.contains('invalid')) {
       document.getElementById('DescriptionInput').classList.remove('invalid');
     }
-    if (this.blueprint.Image == undefined || this.blueprint.Image == '') {
-      document.getElementById('ImageInput').classList.add('invalid');
-      valid = false;
-    } else if (document.getElementById('ImageInput').classList.contains('invalid')) {
-      document.getElementById('ImageInput').classList.remove('invalid');
-    }
-
-    for (let layer of this.layers) {
-      console.log(layer.component);
-      if (layer.component.Name == undefined || layer.component.Name == '') {
-        document.getElementById(layer.getID() + 'TitleInput').classList.add('invalid');
-        valid = false;
-      } else if (document.getElementById(layer.getID() + 'TitleInput').classList.contains('invalid')) {
-        document.getElementById(layer.getID() + 'TitleInput').classList.remove('invalid');
-      }
-      if (layer.component.Description == undefined || layer.component.Description == '') {
-        document.getElementById(layer.getID() + 'DescriptionInput').classList.add('invalid');
-        valid = false;
-      } else if (document.getElementById(layer.getID() + 'DescriptionInput').classList.contains('invalid')) {
-        document.getElementById(layer.getID() + 'DescriptionInput').classList.remove('invalid');
+    //if (this.blueprint.Image == undefined || this.blueprint.Image == '') {
+    //  document.getElementById('ImageInput').classList.add('invalid');
+    //  valid = false;
+    //} else if (document.getElementById('ImageInput').classList.contains('invalid')) {
+    //  document.getElementById('ImageInput').classList.remove('invalid');
+    //}
+    if (this.layers.length > 0) {
+      for (let layer of this.layers) {
+        if (layer.component.Name == undefined || layer.component.Name == '') {
+          document.getElementById(layer.getID() + 'TitleInput').classList.add('invalid');
+          valid = false;
+        } else if (document.getElementById(layer.getID() + 'TitleInput').classList.contains('invalid')) {
+          document.getElementById(layer.getID() + 'TitleInput').classList.remove('invalid');
+        }
+        if (layer.component.Description == undefined || layer.component.Description == '') {
+          document.getElementById(layer.getID() + 'DescriptionInput').classList.add('invalid');
+          valid = false;
+        } else if (document.getElementById(layer.getID() + 'DescriptionInput').classList.contains('invalid')) {
+          document.getElementById(layer.getID() + 'DescriptionInput').classList.remove('invalid');
+        }
       }
     }
     return valid;
@@ -95,8 +131,9 @@ export class AddBlueprintComponent {
     this.blueprint.Tags = (<HTMLTextAreaElement>document.getElementById('TagsInput')).value.split(',').filter(tag => tag != "");
   }
 
-  uploadFile(e: Event): void {
-    console.log(e);
+  addFile(e): void {
+    this.ImageFile = e.target.files[0];
+    this.uploadFileToServer();
   }
 
 }

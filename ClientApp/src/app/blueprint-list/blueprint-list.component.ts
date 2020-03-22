@@ -2,6 +2,8 @@ import { Component, Inject, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FilteredList, ITaggable } from '../shared/TagFilteredList';
 import { Blueprint } from '../shared/Blueprint';
+import { BlueprintService } from '../services/blueprint.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-blueprint-list',
@@ -11,10 +13,15 @@ import { Blueprint } from '../shared/Blueprint';
 
 export class BlueprintListComponent {
   public blueprints: FilteredList<Blueprint>;
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<any>(baseUrl + 'api/blueprint', { observe: 'response' }).subscribe(response => {
-      this.blueprints = new FilteredList(response.body['Blueprints'].map((blueprint: Blueprint) => new Blueprint(blueprint)),
-        response.body['Tags']);
-    }, error => console.error(error));
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private blueprintService: BlueprintService) {
+    blueprintService.getAll().pipe(
+      first())
+      .subscribe(
+        data => {
+          this.blueprints = new FilteredList(data.map((item: Blueprint) => new Blueprint(item)));
+        },
+        error => {
+          console.log(error);
+        });
   }
 }

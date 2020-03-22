@@ -15,21 +15,27 @@ import { ViewComponentComponent } from './view-component/view-component.componen
 import { LoginComponent } from './login/login.component';
 import { HttpInterceptorService } from './shared/HttpInterceptorService';
 import { AuthGuard } from './auth.guard';
-import { AuthenticationService } from './Authentication.service';
+import { UserService } from './services/user.service';
 import { RecentBlueprintsComponent } from './recent-blueprints/recent-blueprints.component';
 import { AddBlueprintComponent } from './add-blueprint/add-blueprint.component';
-import { BlueprintService } from './blueprint.service';
+import { BlueprintService } from './services/blueprint.service';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { BlueprintSelectorComponent } from './blueprint-selector/blueprint-selector.component';
+import { UserInfoComponent } from './user-info/user-info.component';
+import { UserProjectsComponent } from './user-projects/user-projects.component';
+import { ProjectService } from './services/project.service';
+import { ImageService } from './services/image.service';
 
 const routes: Routes = [
-  { path: '', component: RecentBlueprintsComponent, canActivate:[AuthGuard]},
+  { path: '', component: RecentBlueprintsComponent, canActivate: [AuthGuard] },
   { path: 'blueprints', component: BlueprintList, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'add-blueprint', component: AddBlueprintComponent, canActivate: [AuthGuard] },
   { path: 'add-project/:id', component: AddProjectComponent, canActivate: [AuthGuard] },
   { path: 'add-project', component: BlueprintSelectorComponent, canActivate: [AuthGuard] },
-  { path: 'blueprint/:id', component: ViewBlueprint, pathMatch: 'full', canActivate: [AuthGuard]},
+  { path: 'blueprint/:id', component: ViewBlueprint, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'user-projects', component: UserProjectsComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
+  { path: 'account', component: UserInfoComponent, canActivate : [AuthGuard] },  
   { path: '**', redirectTo: '' }
 ];
 
@@ -45,7 +51,9 @@ const routes: Routes = [
     LoginComponent,
     AddBlueprintComponent,
     RecentBlueprintsComponent,
-    BlueprintSelectorComponent
+    BlueprintSelectorComponent,
+    UserInfoComponent,
+    UserProjectsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -57,8 +65,10 @@ const routes: Routes = [
     MDBBootstrapModule.forRoot()
   ],
   providers: [AuthGuard,
-    AuthenticationService,
+    UserService,
     BlueprintService,
+    ProjectService,
+    ImageService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })

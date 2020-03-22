@@ -7,7 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class HttpInterceptorService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+    if (request.reportProgress == false) {
+      request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+      request = request.clone({ headers: request.headers.set('Accept', 'application/json') })
+    }
+
     if (localStorage.getItem('token')) {
       request = request.clone({
         headers: request.headers.set('Authorization', 'bearer ' + JSON.parse(localStorage.getItem('token')).token)

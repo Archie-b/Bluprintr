@@ -23,7 +23,8 @@ export class Blueprint implements ITaggable {
   Image: string;
   Components: SubComponent[];
   IsPublic: boolean;
-  DateCreated: Date;
+  DateCreated: string;
+  Owner : string;
 
 }
 

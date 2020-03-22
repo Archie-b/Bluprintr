@@ -24,6 +24,8 @@
 
         public bool? IsPublic { get; set; }
 
+        public string Colour { get; set; }
+
         public bool Equals([AllowNull] Component other)
         {
             return this.Name == other.Name;

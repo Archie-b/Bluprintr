@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 
@@ -41,9 +42,18 @@ namespace Bluprintr.Models.data.Interfaces
             return this.items.Find<T>(item => item.Id == id).First();
         }
 
-        public void Post(T item)
-        {
+        public string Post(T item)
+        { 
             this.items.InsertOne(item);
+
+            return item.Id;
+        }
+            
+        public string Update(T item)
+        {
+            this.items.DeleteOne(Builders<T>.Filter.Eq("Id", item.Id));
+            this.items.InsertOne(item);
+            return item.Id;
         }
     }
 }

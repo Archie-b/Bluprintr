@@ -1,5 +1,5 @@
-export interface service<T>{
-  add(item:T): boolean;
-  getAll(): T[];
-  get(id: string): T;
+export interface IService<T>{
+  add(item:T);
+  getAll();
+  get(id: string);
 }

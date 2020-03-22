@@ -12,15 +12,13 @@ import { Project, ProjectComponent } from '../shared/project';
 /** add-project component*/
 export class AddProjectComponent {
   private blueprint: Blueprint;
-  private project : Project;
+  private project: Project;
   /** add-project ctor */
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private _Activatedroute: ActivatedRoute) {
     http.get<any>(baseUrl + `api/blueprint/${this._Activatedroute.snapshot.paramMap.get("id")}`, { observe: 'response' }).subscribe(response => {
-      this.blueprint = response.body;
+      this.blueprint = new Blueprint(response.body);
+      this.project = new Project(null, this.blueprint);
     }, error => console.error(error));
-
-    this.project = new Project(this.blueprint);
-
   }
 
   TranslateCoordinates(coords: string): string {
@@ -34,6 +32,7 @@ export class AddProjectComponent {
         splitCoords[i] = splitCoords[i] * height;
       }
     }
+
     return splitCoords.join(',');
   }
 

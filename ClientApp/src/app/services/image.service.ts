@@ -1,22 +1,25 @@
 import { Observable } from "rxjs";
 import { HttpClient } from '@angular/common/http';
-import { service } from "./service";
-export class ImageService implements service<File> {
+import { IService } from "./service";
+import { Injectable, Inject } from "@angular/core";
+import { map } from "rxjs/operators";
 
-  constructor(private http: HttpClient) { }
+@Injectable()
+export class ImageService implements IService<File> {
 
-  add(item: File): boolean {
-    const formData = new FormData();
-    formData.append('image', item);
-    return true
-    //this.http.post('', formData);
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+
+  add(item: File) {
+    const fd : FormData = new FormData();
+    fd.append('image', item);
+    return this.http.post<any>(this.baseUrl + 'api/image', fd, { observe: "response", reportProgress: true }).pipe(map(response => { return response.body }));
   }
 
-  getAll(): File[] {
+  getAll() {
     throw new Error("Method not implemented.");
   }
 
-  get(id: string): File {
+  get(id: string) {
     throw new Error("Method not implemented.");
   }
 

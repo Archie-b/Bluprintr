@@ -1,22 +1,31 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Project } from "../shared/Project";
-import { service } from "./service";
+import { IService } from "./service";
+import { map } from "rxjs/operators";
 
 @Injectable()
-export class ProjectService implements service<Project>  {
-  constructor(private http: HttpClient) { }
-  add(item: Project): boolean {
-    this.http.post<any>('api/project', JSON.stringify(item), { observe: 'response' }).subscribe(response => {
-    })
-    return false;
+export class ProjectService implements IService<Project>  {
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  add(item: Project) {
+    return this.http.post<any>(this.baseUrl + 'api/project', JSON.stringify(item), { observe: 'response' }).pipe(map(response => {
+      return response.body;
+    }));
   }
-  getAll(): Project[] {
+  getAll() {
     this.http.get<any>('api/get', { observe: 'response' }).subscribe(response => {
       return response.body;
     })
+    return [];
   }
-  get(id: string): Project {
+  get(id: string) {
     throw new Error("Method not implemented.");
   }
+
+  getForUser(userID: string) {
+    return this.http.get<any>(this.baseUrl + 'api/project/user/' + userID, { observe: 'response' })
+      .pipe(map(projects => {
+        return projects.body;
+      }));
+  } 
 }

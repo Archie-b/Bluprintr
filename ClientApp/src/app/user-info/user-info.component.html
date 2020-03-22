@@ -1,0 +1,9 @@
+<div *ngIf="user" class="w-25 bg-white mx-auto p-2">
+  <h2>{{user.Username}}</h2>
+  <div class="md-form w-100">
+    <h5>Change Password</h5>
+    <input type="password" id="signupPassword" class="form-control mb-4" placeholder="Password" [(ngModel)]="user.password" name="password">
+    <input type="password" id="signupConfirmPassword" class="form-control mb-4" placeholder="Confirm Password" [(ngModel)]="user.confirmPassword" name="confirmPassword">
+    <button class="btn btn-info btn-block my-4" type="submit" (click)="signUp()">Update Password</button>
+  </div>
+</div>

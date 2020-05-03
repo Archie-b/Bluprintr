@@ -11,7 +11,7 @@
 
     /// <summary>Controller for accessing and modifying projects in the database</summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
-    [Route("api/[controller]/{route}")]
+    [Route("api/[controller]/{action}")]
     public class ProjectController : Controller
     {
         /// <summary>The interface for accessing the database</summary>
@@ -36,10 +36,12 @@
         /// <returns>A JSON representation of the user's projects</returns>
         [HttpGet("{id}")]
         [Authorize]
-        [Route("getForUser")]
+        [ActionName("getForUser")]
         public IActionResult GetForUser(string id)
         {
-            return new Response(JsonConvert.SerializeObject(this.driver.Get(false).ToList().Where(p => p.Owner == id)));
+            var temp = this.driver.Get(false).ToList();
+            var temp2 = temp.Where(p => p.Owner == id).ToList();
+            return new Response(JsonConvert.SerializeObject(temp2));
         }
 
         /// <summary>Adds the provided project to the database</summary>
@@ -47,17 +49,29 @@
         /// <returns>The ID of the added project</returns>
         [HttpPost]
         [Authorize]
+        [ActionName("post")]
         public IActionResult Post([FromBody] Project project)
         {
             return new Response(JsonConvert.SerializeObject(this.driver.Post(project)));
         }
 
+        /// <summary>Updates the provided project in the database</summary>
+        /// <param name="project">The project</param>
+        /// <returns>The ID of the updated project</returns>
+        [HttpPost]
+        [Authorize]
+        [ActionName("update")]
+        public IActionResult Update([FromBody] Project project)
+        {
+            return new Response(JsonConvert.SerializeObject(this.driver.Update(project)));
+        }
+
         /// <summary>Gets the project with the provided ID</summary>
         /// <param name="id">The project's ID</param>
         /// <returns>A JSON representation of the project</returns>
-        [HttpGet("get/{id}")]
+        [HttpGet("{id}")]
         [Authorize]
-        [Route("get")]
+        [ActionName("get")]
         public IActionResult Get(string id)
         {
             return new Response(JsonConvert.SerializeObject(this.driver.Get(id)));
@@ -65,11 +79,26 @@
 
         /// <summary>Gets all projects in the database</summary>
         /// <returns>A JSON representation of all the projects in the database</returns>
+        [HttpGet]
         [Authorize]
-        [Route("getAll")]
+        [ActionName("getAll")]
         public IActionResult GetAll()
         {
-            return new Response(JsonConvert.SerializeObject(this.driver.Get(true)));
+            var temp = this.driver.Get(false).ToList();
+            return new Response(JsonConvert.SerializeObject(temp));
+        }
+
+        /// <summary>Gets the project with the component with the provided code </summary>
+        /// <param name="data">The data for the search</param>
+        /// <returns>A JSON representation of the project</returns>
+        [HttpPost]
+        [Authorize]
+        [ActionName("getProjectByComponentCode")]
+        public IActionResult GetProjectByComponentCode([FromBody] (string userID, string componentCode) data)
+        {
+            return new Response(JsonConvert.SerializeObject(this.driver.Get(false).ToList()
+                .Where(item => item.Owner == data.userID 
+                        && item.Components.FindAll(component => component.Code == data.componentCode).Count > 0)));
         }
     }
 }

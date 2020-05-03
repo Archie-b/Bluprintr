@@ -2,10 +2,11 @@ export class FilteredList<T extends ITaggable> {
 
   private list: T[] = [];
   private filter: Filter[] = [];
-  public searchText: string;
+  public searchText: string = "";
 
   public constructor(list: T[], tags?: string[]) {
     this.list = list;
+    this.list.forEach((item : T)=> item.Display = true);
     if (tags !== undefined) {
       this.filter = this.convertTagsToFilter(tags);
     } else {
@@ -44,7 +45,7 @@ export class FilteredList<T extends ITaggable> {
       filterItem.active = updatedState;
     }
   }
-
+    
   private updateList(hasFilter: Readonly<boolean>): void {
     this.list.forEach((listItem: ITaggable) => listItem.Display = !hasFilter);
     if (hasFilter) this.list.filter((listItem: ITaggable) => !listItem.Tags).forEach((listItem: ITaggable) => listItem.Display === false);

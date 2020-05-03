@@ -30,7 +30,7 @@
         {
             if (publicOnly)
             {
-                return this.items.Find(item => item.IsPublic.Value);
+                return this.items.Find(item => item.IsPublic.Value).Sort(Builders<T>.Sort.Descending("DateCreated"));
             }
             else
             {
@@ -43,14 +43,15 @@
         /// <returns>A database element</returns>
         public T Get(string id)
         {
-            return this.items.Find<T>(item => item.Id == id).First();
+            var result = this.items.Find(item => item.Id == id).First();
+            return result;
         }
 
         /// <summary>Adds the parsed item to the database</summary>
         /// <param name="item">The element to be added to the database collection</param>
         /// <returns>The ID of the added item</returns>
         public string Post(T item)
-        { 
+        {
             this.items.InsertOne(item);
 
             return item.Id;
@@ -61,9 +62,22 @@
         /// <returns>The ID of the updated element</returns>
         public string Update(T item)
         {
-            this.items.DeleteOne(Builders<T>.Filter.Eq("Id", item.Id));
-            this.items.InsertOne(item);
-            return item.Id;
+            if (this.items.ReplaceOne(Builders<T>.Filter.Eq(s => s.Id, item.Id), item).IsAcknowledged)
+            {
+                return item.Id;
+            }
+            else
+            {
+                return "0";
+            }
+        }
+
+        /// <summary>Deletes the blueprint with the specified ID</summary>
+        /// <param name="id">The ID of the blueprint to be deleted</param>
+        /// <returns>Boolean representing the success of the delete</returns>
+        public bool Delete(string id)
+        {
+            return this.items.DeleteOne(Builders<T>.Filter.Eq("Id", id)).IsAcknowledged;
         }
     }
 }

@@ -13,10 +13,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Angular.Material" Version="1.1.12" />
+    <PackageReference Include="M6T.Core.TupleModelBinder" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="MongoDB.Bson" Version="2.10.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.0" />
     <PackageReference Include="morelinq" Version="3.3.1" />
@@ -36,26 +37,33 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Controllers\TutorialController.cs" />
+    <Compile Remove="Models\data\Step.cs" />
+    <Compile Remove="Models\data\Tutorial.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="ClientApp\src\app\auth.guard.ts" />
     <None Remove="ClientApp\src\app\Authentication.service.ts" />
     <None Remove="ClientApp\src\app\blueprint.service.ts" />
     <None Remove="ClientApp\src\app\image.service.ts" />
+    <None Remove="ClientApp\src\app\pipes\getComponentFromID.ts" />
     <None Remove="ClientApp\src\app\project.service.ts" />
     <None Remove="ClientApp\src\app\service.ts" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js" />
     <None Remove="ClientApp\src\app\shared\Blueprint.js.map" />
     <None Remove="ClientApp\src\app\shared\Blueprint.ts" />
-    <None Remove="ClientApp\src\app\shared\ComponentCanvas.ts" />
     <None Remove="ClientApp\src\app\shared\DrawingCanvas.ts" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.component.js" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.component.js.map" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.js" />
     <None Remove="ClientApp\src\app\shared\DynamicForm.js.map" />
     <None Remove="ClientApp\src\app\shared\HttpInterceptorService.ts" />
+    <None Remove="ClientApp\src\app\shared\Observable.ts" />
     <None Remove="ClientApp\src\app\shared\project.ts" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.js.map" />
     <None Remove="ClientApp\src\app\shared\TagFilteredList.ts" />
+    <None Remove="ClientApp\src\app\shared\tutorial.ts" />
     <None Remove="ClientApp\src\app\shared\user.ts" />
     <None Remove="ClientApp\src\app\shared\UserToken.ts" />
     <None Remove="ClientApp\src\app\view-blueprint\view-blueprint.component.css" />
@@ -65,17 +73,19 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pipes\getComponentFromID.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\user.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\blueprint.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\project.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\image.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\Blueprint.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\shared\ComponentCanvas.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\DrawingCanvas.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\Observable.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\Project.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\TagFilteredList.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\HttpInterceptorService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\tutorial.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\User.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\UserToken.ts" />
   </ItemGroup>

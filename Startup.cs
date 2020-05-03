@@ -13,6 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.AspNetCore.Http;
+using M6T.Core.TupleModelBinder;
+using Newtonsoft.Json;
 
 namespace Bluprintr
 {
@@ -30,7 +32,11 @@ namespace Bluprintr
         {
             services.Configure<BluprintrSettings>(this.Configuration.GetSection(nameof(BluprintrSettings)));
             services.AddSingleton<IBluprintrSettings>(sp => sp.GetRequiredService<IOptions<BluprintrSettings>>().Value);
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+            services.AddMvc(options => options.ModelBinderProviders.Insert(0, new TupleModelBinderProvider())).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -65,6 +71,12 @@ namespace Bluprintr
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            };
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

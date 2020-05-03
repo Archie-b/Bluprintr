@@ -1,1 +1,20 @@
-﻿
+.layer {
+  display: inline-block;
+  border-bottom: 1px solid #dee2e6;
+  padding: 10px 0 10px 0;
+}
+
+#ComponentList {
+  height: 90%;
+  overflow-y: scroll;
+}
+
+.highlighted {
+  animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

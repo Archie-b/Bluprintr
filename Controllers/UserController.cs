@@ -118,6 +118,7 @@
         [HttpPost]
         public IActionResult UpdatePassword([FromBody] User login)
         {
+            this.auth.HashPasword(ref login);
             return new Response(JsonConvert.SerializeObject(this.driver.Update(login)));
         }
     }

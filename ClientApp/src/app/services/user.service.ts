@@ -48,6 +48,7 @@ export class UserService implements IService<User> {
   }
 
   updatePassword(user: User) {
+    console.log(JSON.stringify(user));
     return this.http.post<any>(this.baseUrl + 'api/user/UpdatePassword', JSON.stringify(user))
       .pipe(map(success => {
         return success;

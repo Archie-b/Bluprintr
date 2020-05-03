@@ -1,0 +1,14 @@
+<div class="row w-25 mx-auto m-3 bg-white p-3">
+  <h3 class="text-center w-100">Component Search</h3>
+  <form class="form-inline md-form form-sm w-75 mx-auto">
+    <mdb-icon fas icon="search" aria-hidden="true"></mdb-icon>
+    <input class="form-control ml-3 w-100" type="text" placeholder="Component Label" aria-label="Search" mdbInput name="searchbox" [(ngModel)]="searchText">
+    <div class="md-form w-50 mx-auto">
+      <button class="btn btn-info btn-block w-100 border-right" type="submit" (click)="search()">Search</button>
+    </div>
+  </form>
+  <div *ngIf="project">
+    <div class="w-100">This component is from: {{project.Name}}</div>
+    <div class="w-100"> Click <span class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }"><a class="nav-link text-dark" [routerLink]="['/edit-project/', project.Id]">here</a></span> To View It</div>
+  </div>
+</div>

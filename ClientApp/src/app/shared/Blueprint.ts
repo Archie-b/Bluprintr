@@ -1,4 +1,4 @@
-import { ITaggable } from "./TagFilteredList";
+import { ITaggable } from './TagFilteredList';
 
 export class Blueprint implements ITaggable {
 
@@ -24,8 +24,7 @@ export class Blueprint implements ITaggable {
   Components: SubComponent[];
   IsPublic: boolean;
   DateCreated: string;
-  Owner : string;
-
+  Owner: string;
 }
 
 export class SubComponent {
@@ -36,14 +35,16 @@ export class SubComponent {
       this.Description = b.Description;
       this.Components = b.Components;
       this.Map = b.Map;
+      this.Colour = b.Colour;
     } else {
       this.Components = [];
-      this.Map = "";
+      this.Map = '';
     }
   }
   Id: string;
   Name: string;
   Description: string;
   Components: SubComponent[];
-  Map : string;
+  Map: string;
+  Colour: string;
 }

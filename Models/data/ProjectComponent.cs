@@ -18,7 +18,7 @@
 
         /// <summary>Gets or sets the notes.</summary>
         /// <value>The notes attached to the component</value>
-        public List<string> Notes { get; set; }
+        public string Notes { get; set; }
 
         /// <summary>Gets or sets whether the element publically accessible</summary>
         /// <value>Whether the element is publically accessible</value>
@@ -27,5 +27,9 @@
         /// <summary>Gets or sets the code.</summary>
         /// <value>The code that is associated with the component</value>
         public string Code { get; set; }
+
+        /// <summary>Gets or sets the base component.</summary>
+        /// <value>The base component that is associated with the component</value>
+        public string BaseComponent { get; set; }
     }
 }

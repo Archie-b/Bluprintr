@@ -1,34 +1,49 @@
-<div *ngIf="blueprint" class="z-depth-1 bg-white p-2 mx-auto w-75 row" style="height: 800px">
+<div *ngIf="project && blueprint" class="z-depth-1 bg-white p-2 mx-auto w-75 row" style="height: 800px" (load)="SetReadOnly()">
   <div id="BlueprintData" class="w-25 p-2 border-right h-100">
     <div>
       Blueprint: {{blueprint.Name}}
     </div>
     <div class="md-form">
-      <input type="text" name="BlueprintName" class="form-control" mdbInput id="TitleInput" />
+      <input type="text" name="BlueprintName" class="form-control" mdbInput id="TitleInput" [(ngModel)]="project.Name" />
       <label for="TitleInput" class="">Name</label>
     </div>
     <div class="md-form">
-      <textarea type="text" id="DescriptionInput" class="md-textarea form-control" mdbInput></textarea>
+      <textarea type="text" id="DescriptionInput" class="md-textarea form-control" mdbInput [(ngModel)]="project.Description"></textarea>
       <label for="DescriptionInput">Description</label>
     </div>
     <div class="md-form">
-      <input type="text" id="TagsInput" class="form-control" mdbInput />
+      <input type="text" id="TagsInput" class="form-control" mdbInput [(ngModel)]="project.Tags" />
       <label for="TagsInput">Tags (Comma Seperated)</label>
     </div>
     <div class="md-form w-50 mx-auto">
-      <button class="btn btn-info btn-block w-100 border-right" type="submit">Save</button>
+      <button class="btn btn-info btn-block w-100 border-right" type="submit" (click)="SaveProject()">Save</button>
     </div>
   </div>
-  <div class="w-50 border-right p-2 h-100" id="svgHolder" [ngStyle]="{'background-image':'url(assets/'+ blueprint.Image +')', 'background-repeat': 'no-repeat', 'background-size':'contain'}">
+  <div class="w-50 border-right p-2 h-100" id="svgHolder" [ngStyle]="{'background-image':'url(assets/'+ blueprint.Image +')', 'background-repeat': 'no-repeat', 'background-size':'contain', 'position':'relative'}">
     <ng-container *ngIf="blueprint.Components">
-      <svg *ngFor="let component of blueprint.Components" height="784px" width="712px" style="position: absolute">
-        <svg:polygon *ngIf="component.Map" [attr.points]="TranslateCoordinates(component.Map)" style="fill: lime; stroke: purple; stroke-width: 1; opacity: 0.4" />
+      <svg *ngFor="let component of blueprint.Components" height="100%" width="100%" style="position: absolute; width:100%;" id="svg{{component.Id}}">
+        <svg:polygon *ngIf="component.Map" [attr.points]="TranslateCoordinates(component.Map)" [ngStyle]="{'fill':component.Colour, 'stroke': 'black', 'stroke-width': '1', 'opacity': '0.4'}"/>
       </svg>
     </ng-container>
   </div>
-  <div id="ComponentList" class="w-25 p-2 h-100">
-    <div *ngFor="let component of blueprint.Components">
-      <div>{{component.Name}}</div>
+  <div id="ComponentList" class="w-25 p-2 h-100 layers">
+    <div *ngFor="let component of project.Components" class="w-100 layer p-0 m-0" id="{{component.BaseComponent}}">
+      <div>{{(blueprint.Components | getComponentFromID : component.BaseComponent).Name}}</div>
+      <div class="custom-control-inline custom-checkbox md-form w-100">
+        <input type="checkbox" class="custom-control-input" id="{{component.BaseComponent}}NeedsReplacing" [(ngModel)]="component.NeedsReplacing" name="ComponentNeedsReplacing">
+        <label class="custom-control-label ml-4" for="{{component.BaseComponent}}NeedsReplacing">Needs Replacing</label>
+      </div>
+      <div class="md-form">
+        <textarea type="text" id="{{component.BaseComponent}}Notes" class="md-textarea form-control" mdbInput [(ngModel)]="component.Notes"></textarea>
+        <label for="{{component.BaseComponent}}Notes">Notes</label>
+      </div>
+      <div class="md-form">
+        <input type="text" id="{{component.BaseComponent}}Code" class="form-control" mdbInput disabled="disabled" value="{{component.Code}}" />
+        <label for="{{component.BaseComponent}}Code">Code</label>
+      </div>
+      <div class="md-form">
+        <button class="btn btn-info btn-block w-100 border-right" type="submit" (click)="ToggleHighlight(component.BaseComponent)">Toggle Highlight</button>
+      </div>
     </div>
   </div>
 </div>

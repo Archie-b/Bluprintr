@@ -25,9 +25,13 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { UserProjectsComponent } from './user-projects/user-projects.component';
 import { ProjectService } from './services/project.service';
 import { ImageService } from './services/image.service';
+import { ComponentSearchComponent } from './component-search/component-search.component';
+import { HomeComponent } from "./home/home.component";
+import { getComponentFromID } from"./pipes/getComponentFromID";
+import { ServiceWrapper} from './shared/Observable';
 
 const routes: Routes = [
-  { path: '', component: RecentBlueprintsComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'blueprints', component: BlueprintList, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'add-blueprint', component: AddBlueprintComponent, canActivate: [AuthGuard] },
   { path: 'add-project/:id', component: AddProjectComponent, canActivate: [AuthGuard] },
@@ -35,7 +39,9 @@ const routes: Routes = [
   { path: 'blueprint/:id', component: ViewBlueprint, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'user-projects', component: UserProjectsComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'account', component: UserInfoComponent, canActivate : [AuthGuard] },  
+  { path: 'account', component: UserInfoComponent, canActivate: [AuthGuard] },
+  { path: 'edit-project/:id', component: AddProjectComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: ComponentSearchComponent, canActivate:[AuthGuard]},
   { path: '**', redirectTo: '' }
 ];
 
@@ -53,7 +59,10 @@ const routes: Routes = [
     RecentBlueprintsComponent,
     BlueprintSelectorComponent,
     UserInfoComponent,
-    UserProjectsComponent
+    UserProjectsComponent,
+    ComponentSearchComponent,
+    HomeComponent,
+    getComponentFromID
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -69,6 +78,8 @@ const routes: Routes = [
     BlueprintService,
     ProjectService,
     ImageService,
+    getComponentFromID, 
+    ServiceWrapper,
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })

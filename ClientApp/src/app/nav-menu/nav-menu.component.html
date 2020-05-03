@@ -34,6 +34,9 @@
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/account']">Account</a>
           </li>
+          <li class="nav-item " *ngIf="loggedIn">
+            <a class="nav-link blue-link " (click)="logout()">Logout</a>
+          </li>
         </ul>
       </div>
     </div>

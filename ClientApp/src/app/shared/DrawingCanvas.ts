@@ -29,6 +29,7 @@ export class DrawingCanvas {
     return this.canvas;
   }
   startDraw(e: MouseEvent): void {
+    this.component.Map = "";
     let x : number = e.clientX - this.canvas.getBoundingClientRect().left;
     let y : number = e.clientY - this.canvas.getBoundingClientRect().top;
     this.getContext().clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -55,6 +56,7 @@ export class DrawingCanvas {
     }
   }
   setColour(hexCode: string): void {
+    this.component.Colour = hexCode;
     this.getContext().strokeStyle = hexCode;
   }
 }

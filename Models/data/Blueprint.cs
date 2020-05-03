@@ -36,9 +36,9 @@
         /// <value>The tags that describe the blueprint</value>
         public List<string> Tags { get; set; }
 
-        /// <summary>Gets or sets the date added.</summary>
+        /// <summary>Gets or sets the date created.</summary>
         /// <value>The date the blueprint was added to the system</value>
-        public string DateAdded { get; set; }
+        public string DateCreated { get; set; }
 
         /// <summary>Gets or sets the publicity of the blueprint</summary>
         /// <value>Whether the blueprint is accessible to any user</value>

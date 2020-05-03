@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { User } from '../shared/user';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,6 +10,13 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  loggedIn = false;
+
+  constructor(private userService: UserService) {
+    if (localStorage.getItem('token')) {
+      this.loggedIn = true;
+    }
+  }
 
   collapse() {
     this.isExpanded = false;
@@ -14,5 +24,10 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  logout() {
+    this.userService.logout();
+    window.location.href = '/';
   }
 }

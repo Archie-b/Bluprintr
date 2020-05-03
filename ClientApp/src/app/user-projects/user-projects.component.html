@@ -2,12 +2,12 @@
   <h3 class="text-center w-50">Project List</h3>
   <form class="form-inline md-form form-sm" *ngIf="projects">
     <mdb-icon fas icon="search" aria-hidden="true"></mdb-icon>
-    <input class="form-control ml-3 align-right" [(ngModel)]="projects.searchText" (keyup)="projects.applySearchText()" type="text" placeholder="Search" aria-label="Search" mdbInput name="searchbox">
+    <input class="form-control ml-3 align-right" [(ngModel)]="projects.searchText" (keyup)="projects.applySearchText()" type="text" placeholder="Search" aria-label="Search" mdbInput name="searchbox" *ngIf="projects.filters().count > 0">
   </form>
 </div>
 <p *ngIf="!projects"><em>Loading...</em></p>
 <div *ngIf="projects" class="w-75 mx-auto">
-  <div class="row mb-3">
+  <div class="row mb-3" *ngIf="projects.filters().count > 0">
     <div *ngFor="let filter of projects.filters()" class="col-1">
       <div [ngClass]="[filter.active == 0 ? 'included' : filter.active == 1 ? 'excluded' : '', 'tag']">
         <div class="w-100 text-center"> {{ filter.tag }}</div>
@@ -21,9 +21,8 @@
   </div>
   <div class="row">
     <div *ngFor="let project of projects.items()" [ngClass]="{'card w-responsive no-gutters col-md-2 m-1 p-0' : true, 'display' : project.display}">
-      <img src="/assets/{{ project.Image }}" class="card-img-top rounded mx-auto d-block" />
       <div class="card-body">
-        <h3 [routerLink]="['/project', project.Id]"> {{ project.Name}}</h3>
+        <h3 [routerLink]="['/edit-project/', project.Id]"> {{ project.Name}}</h3>
         <div class="card-text w-100">{{ project.Description }}</div>
       </div>
     </div>

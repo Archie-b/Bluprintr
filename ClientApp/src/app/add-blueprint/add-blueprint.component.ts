@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Blueprint } from '../shared/Blueprint';
-import { ComponentCanvas } from "../shared/ComponentCanvas";
 import { DrawingCanvas } from '../shared/DrawingCanvas';
 import { ImageService } from '../services/image.service';
 import { HttpClient } from '@angular/common/http';
 import { BlueprintService } from '../services/blueprint.service';
 import { first } from 'rxjs/operators';
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-component-draw-blueprint',
@@ -20,7 +20,7 @@ export class AddBlueprintComponent {
   public uploading: boolean = false;
   public ImageFile: File;
 
-  constructor(private blueprintService: BlueprintService, private imageService: ImageService) {
+  constructor(private blueprintService: BlueprintService, private imageService: ImageService, private _Activatedroute: ActivatedRoute) {
     this.layers = [];
   }
 
@@ -50,7 +50,7 @@ export class AddBlueprintComponent {
     document.getElementById(id).remove();
   }
 
-  async saveBlueprint(): Promise<void> {
+  saveBlueprint() {
     this.error = false;
     if (this.validateForm()) {
       this.layers.map(layer => this.blueprint.Components.push(layer.component));
@@ -103,12 +103,12 @@ export class AddBlueprintComponent {
     } else if (document.getElementById('DescriptionInput').classList.contains('invalid')) {
       document.getElementById('DescriptionInput').classList.remove('invalid');
     }
-    //if (this.blueprint.Image == undefined || this.blueprint.Image == '') {
-    //  document.getElementById('ImageInput').classList.add('invalid');
-    //  valid = false;
-    //} else if (document.getElementById('ImageInput').classList.contains('invalid')) {
-    //  document.getElementById('ImageInput').classList.remove('invalid');
-    //}
+    if (this.blueprint.Image == undefined || this.blueprint.Image == '') {
+      document.getElementById('ImageInput').classList.add('invalid');
+      valid = false;
+    } else if (document.getElementById('ImageInput').classList.contains('invalid')) {
+      document.getElementById('ImageInput').classList.remove('invalid');
+    }
     if (this.layers.length > 0) {
       for (let layer of this.layers) {
         if (layer.component.Name == undefined || layer.component.Name == '') {

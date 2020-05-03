@@ -1,8 +1,8 @@
-<div class="z-depth-1 bg-white p-2 mx-auto w-75 row" style="height: 800px">
+  <div class="z-depth-1 bg-white p-2 mx-auto w-75 row" style="height: 800px">
   <div *ngIf="error" class="w-100"> Error, please try again</div>
   <div id="BlueprintData" class="w-25 p-2 border-right h-100">
     <div class="md-form">
-      <input type="text" [(ngModel)]="blueprint.Name" name="BlueprintName" class="form-control validate" mdbInput id="TitleInput"/>
+      <input type="text" [(ngModel)]="blueprint.Name" name="BlueprintName" class="form-control validate" mdbInput id="TitleInput" />
       <label for="TitleInput" class="">Name</label>
     </div>
     <div class="md-form">
@@ -10,9 +10,13 @@
       <label for="DescriptionInput">Description</label>
     </div>
     <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+      </div>
       <div class="custom-file">
-        <input id="ImageInput" type="file" (change)="addFile($event)" name="files">
-        <div *ngIf="this.uploading">Uploading file</div>
+        <input type="file" class="custom-file-input" id="ImageInput" (change)="addFile($event)"
+               aria-describedby="inputGroupFileAddon01" name="files" value="{{this.blueprint.Image}}">
+        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
       </div>
     </div>
     <div class="custom-control-inline custom-checkbox md-form w-100">
@@ -20,7 +24,7 @@
       <label class="custom-control-label ml-4" for="BlueprintIsPublic">Is Public</label>
     </div>
     <div class="md-form">
-      <input type="text" id="TagsInput" class="form-control" mdbInput (keyup)="updateTags()"/>
+      <input type="text" id="TagsInput" class="form-control" mdbInput (keyup)="updateTags()" />
       <label for="TagsInput">Tags (Comma Seperated)</label>
     </div>
     <div class="md-form w-50 mx-auto">
@@ -33,7 +37,7 @@
     <div *ngIf="layers" class="layers scrollbar scrollbar-primary">
       <div *ngFor="let layer of layers; let layerNumber = index" class="layer w-100">
         <div class="md-form">
-          <input type="text" [(ngModel)]="layers[layerNumber].component.Name" name="BlueprintName" class="form-control" mdbInput id="{{layer.getID()}}TitleInput"/>
+          <input type="text" [(ngModel)]="layers[layerNumber].component.Name" name="BlueprintName" class="form-control" mdbInput id="{{layer.getID()}}TitleInput" />
           <label for="{{layer.getID()}}TitleInput" class="">Name</label>
         </div>
         <div class="md-form">

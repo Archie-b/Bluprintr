@@ -79,14 +79,12 @@
 
         /// <summary>Deletes the blueprint with the specified ID</summary>
         /// <param name="id">The ID of the blueprint to be deleted</param>
+        /// <returns>Boolean representing the success of the delete</returns>
         [Authorize]
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public ActionResult Delete(string id)
         {
-            if (this.useMongo)
-            {
-                // this.driver.Delete(id);
-            }
+            return this.Json(this.driver.Delete(id));
         }
     }
 }

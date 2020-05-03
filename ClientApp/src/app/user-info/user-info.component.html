@@ -1,9 +1,12 @@
 <div *ngIf="user" class="w-25 bg-white mx-auto p-2">
   <h2>{{user.Username}}</h2>
+  <div>Number of Projects: {{count}}</div>
   <div class="md-form w-100">
     <h5>Change Password</h5>
-    <input type="password" id="signupPassword" class="form-control mb-4" placeholder="Password" [(ngModel)]="user.password" name="password">
-    <input type="password" id="signupConfirmPassword" class="form-control mb-4" placeholder="Confirm Password" [(ngModel)]="user.confirmPassword" name="confirmPassword">
-    <button class="btn btn-info btn-block my-4" type="submit" (click)="signUp()">Update Password</button>
+    <input type="password" id="signupPassword" class="form-control mb-4" placeholder="Password" [(ngModel)]="newPassword" name="password">
+    <input type="password" id="signupConfirmPassword" class="form-control mb-4" placeholder="Confirm Password" [(ngModel)]="confirmNewPassword" name="confirmPassword">
+    <button class="btn btn-info btn-block my-4" type="submit" (click)="updatePassword()">Update Password</button>
   </div>
+  <div *ngIf="saved">Saved!</div>
+  <div *ngIf="error" style="color: red;">Passwords did not match</div>
 </div>

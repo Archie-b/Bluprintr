@@ -7,12 +7,12 @@ import { map } from "rxjs/operators";
 @Injectable()
 export class ImageService implements IService<File> {
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private http: HttpClient) { }
 
   add(item: File) {
     const fd : FormData = new FormData();
     fd.append('image', item);
-    return this.http.post<any>(this.baseUrl + 'api/image', fd, { observe: "response", reportProgress: true }).pipe(map(response => { return response.body }));
+    return this.http.post<any>('api/image', fd, { observe: "response", reportProgress: true }).pipe(map(response => { return response.body }));
   }
 
   getAll() {

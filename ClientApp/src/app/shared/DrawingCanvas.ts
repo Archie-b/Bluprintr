@@ -59,4 +59,8 @@ export class DrawingCanvas {
     this.component.Colour = hexCode;
     this.getContext().strokeStyle = hexCode;
   }
+
+  getColour(): string {
+    return this.component.Colour;
+  }
 }

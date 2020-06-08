@@ -27,9 +27,10 @@
       <input type="text" id="TagsInput" class="form-control" mdbInput (keyup)="updateTags()" />
       <label for="TagsInput">Tags (Comma Seperated)</label>
     </div>
-    <div class="md-form w-50 mx-auto">
+    <div class="md-form w-100 mx-auto">
       <button class="btn btn-info btn-block w-100 border-right" type="submit" (click)="saveBlueprint()">Save</button>
     </div>
+    <div class="w-100" style="color: red;">{{errorMessage}}</div>
   </div>
   <div id="CanvasContainer" class="w-50 border-right p-2 h-100" [ngStyle]="{'background-image':'url(assets/'+ blueprint.Image +')','background-repeat': 'no-repeat', 'background-size':'contain'}">
   </div>
@@ -45,7 +46,7 @@
           <label for="{{layer.getID()}}DescriptionInput">Description</label>
         </div>
         <div class="controls w-100 md-form">
-          <button class="btn btn-info btn-block w-100 border-right" type="submit" (click)="changeComponentColour(layer.getID())">Change Colour</button>
+          <button class="btn btn-info btn-block w-100 border-right" type="submit" (click)="changeComponentColour(layer.getID())" [ngStyle]="{'background-color':layer.getColour()}">Change Colour</button>
           <button class="btn btn-info btn-block w-50 border-right" type="submit" (click)="makeLayerTop(layer.getID())">Select</button>
           <button class="btn btn-info btn-block w-50 border-right" type="submit" (click)="deleteLayer(layer.getID())">Delete</button>
         </div>

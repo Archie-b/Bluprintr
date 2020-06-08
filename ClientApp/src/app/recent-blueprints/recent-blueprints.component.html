@@ -1,4 +1,4 @@
-<div *ngIf="blueprints" class="z-depth-1 bg-white p-3 mx-2 mb-2 mb-md-0 col-xs-12 col-sm-4 list-group-flush">
+<div *ngIf="blueprints" class="z-depth-1 bg-white p-3 m-3 mx-2 list-group-flush">
   <h3>Recently Created</h3>
   <div *ngFor="let blueprint of blueprints"  [routerLink]="['/blueprint', blueprint.Id]" class="list-group-item">
     <div>{{blueprint.Name}}</div>

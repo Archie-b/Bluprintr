@@ -17,10 +17,11 @@ export class AddBlueprintComponent {
   public layers: DrawingCanvas[];
   public blueprint: Blueprint = new Blueprint();
   public error: boolean = false;
+  public errorMessage : string = "";
   public uploading: boolean = false;
   public ImageFile: File;
 
-  constructor(private blueprintService: BlueprintService, private imageService: ImageService, private _Activatedroute: ActivatedRoute) {
+  constructor(private blueprintService: BlueprintService, private imageService: ImageService) {
     this.layers = [];
   }
 
@@ -31,7 +32,7 @@ export class AddBlueprintComponent {
     newLayer.setColour(this.generateLayerColour());
     document.getElementById('CanvasContainer').appendChild(newLayer.getCanvas());
     this.layers.push(newLayer);
-  }
+  }   
 
   makeLayerTop(id: string): void {
     document.querySelector('#CanvasContainer').lastChild.after(document.getElementById(id));
@@ -52,6 +53,7 @@ export class AddBlueprintComponent {
 
   saveBlueprint() {
     this.error = false;
+    console.log(this.validateForm());
     if (this.validateForm()) {
       this.layers.map(layer => this.blueprint.Components.push(layer.component));
       this.blueprint.DateCreated = moment().format('dd-MM-YYYY hh:mm:ss');
@@ -124,6 +126,10 @@ export class AddBlueprintComponent {
           document.getElementById(layer.getID() + 'DescriptionInput').classList.remove('invalid');
         }
       }
+    } else {
+      this.error = true;
+      valid = false;
+      this.errorMessage = "Must have at least one component"
     }
     return valid;
   }

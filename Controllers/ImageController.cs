@@ -1,6 +1,8 @@
 ﻿namespace Bluprintr.Controllers
 {
+    using System;
     using System.IO;
+    using System.Linq;
     using System.Net.Http.Headers;
     using Bluprintr.Models;
     using Microsoft.AspNetCore.Authorization;
@@ -43,8 +45,10 @@
 
                 if (file.Length > 0)
                 {
-                    string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    string fileName = (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString().Replace('.', '-') + "."
+                                      + ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Split('.')[1].Trim('"');
                     string fullPath = Path.Combine(newPath, fileName);
+
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);

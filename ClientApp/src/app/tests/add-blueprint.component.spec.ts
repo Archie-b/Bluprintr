@@ -13,6 +13,7 @@ import { InjectionToken } from '@angular/core';
 let component: AddBlueprintComponent;
 let fixture: ComponentFixture<AddBlueprintComponent>;
 export const BASE_URL = new InjectionToken<string>('BASE_URL');
+
 describe('The Add Blueprint Component can', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,7 +27,8 @@ describe('The Add Blueprint Component can', () => {
         BlueprintService,
         ImageService,
         HttpClient,
-        HttpHandler,]
+        HttpHandler,
+      ]
     });
     fixture = TestBed.createComponent(AddBlueprintComponent);
     component = fixture.componentInstance;

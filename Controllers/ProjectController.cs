@@ -100,5 +100,15 @@
                 .Where(item => item.Owner == data.userID 
                         && item.Components.FindAll(component => component.Code == data.componentCode).Count > 0)));
         }
+
+        /// <summary>Deletes the project with the specified ID</summary>
+        /// <param name="id">The ID of the project to be deleted</param>
+        /// <returns>Boolean representing the success of the delete</returns>
+        [Authorize]
+        [HttpDelete("{id}")]
+        public ActionResult Delete(string id)
+        {
+            return this.Json(this.driver.Delete(id));
+        }
     }
 }
